@@ -7,13 +7,10 @@
 ;   You must not remove this notice, or any other, from this software.
 
 (ns clojure.tools.deps.config
-  "Functions for reading and writing tool config files."
+  "Functions for reading tool config files."
   (:require
     [clojure.java.io :as jio]
-    [clojure.pprint :as pprint]
-    [clojure.string :as str]
-    [clojure.tools.deps.edn :as edn]
-    [rewrite-clj.zip :as z]))
+    [clojure.tools.deps.edn :as edn]))
 
 (set! *warn-on-reflection* true)
 
@@ -53,34 +50,6 @@
          (read-config :user lib)
          (read-config :project lib)
          overrides))
-
-(defn write-config
-  "Writes config as EDN to <location>/.cli-config/<lib-ns>/<lib-name>.edn
-  with location defined by :user or :project. Overwrites any existing file."
-  [location lib config]
-  (let [file (config-file location lib)]
-    (jio/make-parents file)
-    (with-open [w (jio/writer file)]
-      (binding [*print-namespace-maps* false]
-        (pprint/pprint config w)))))
-
-(defn assoc-config
-  "Sets the value at k in <location>/.cli-config/<lib-ns>/<lib-name>.edn
-  with location defined by :user or :project. Preserves all existing
-  formatting. Creates the file with {k v} if it does not exist or is empty.
-  Throws if the file cannot be parsed as a single EDN map."
-  [location lib k v]
-  (let [file (config-file location lib)
-        content (when (.exists file) (slurp file))]
-    (if (str/blank? content)
-      (write-config location lib {k v})
-      (let [zloc (z/of-string content)
-            is-map? (= :map (z/tag zloc))
-            nothing-after? (nil? (z/right zloc))
-            path (.getPath file)]
-        (if (and is-map? nothing-after?)
-          (spit file (-> zloc (z/assoc k v) z/root-string))
-          (throw (ex-info (format "Expected single map in %s" path) {:path path})))))))
 
 (defn data-dir
   "Returns a java.io.File at <location>/.cli-config/<lib-ns>/<lib-name>

@@ -2,7 +2,6 @@
  :deps {
    org.clojure/clojure {:mvn/version "1.12.5"}
    org.clojure/tools.deps.edn {:mvn/version "0.9.38"}
-   rewrite-clj/rewrite-clj {:mvn/version "1.2.54"}
  }
  :aliases {
    :test {:extra-paths ["src/test/clojure"]}

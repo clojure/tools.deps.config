@@ -1,12 +1,15 @@
 # tools.deps.config
 
-Per-tool configuration files
+Reading per-tool configuration files
 
 # Rationale
 
 Clojure tools need a well-known place to store user and project configuration.
-This library defines that place and provides functions for reading and writing
-the files stored there.
+This library defines that place and provides functions for reading the files
+stored there. Writing them is provided by
+[tools.deps.config.edit](https://github.com/clojure/tools.deps.config.edit).
+
+The two are separate to isolate dependencies needed for writing but not reading.
 
 # Release Information
 
@@ -22,8 +25,8 @@ config files live under a `.cli-config` directory at one of two locations:
 
 Under `.cli-config` each tool has two well-known paths: a config file of
 settings and a data directory for any other files the tool needs. This
-library fully manages the config file. For the data directory, it manages
-the location and the tool manages the contents. A tool may use either or
+library reads the config file. For the data directory, it manages the
+location and the tool manages the contents. A tool may use either or
 both. The examples below assume:
 
 ```clojure
@@ -33,8 +36,7 @@ both. The examples below assume:
 ## Config
 
 The config file lives at `<location>/.cli-config/<lib-ns>/<lib-name>.edn`
-and is expected to contain a 1-level map with keyword keys. The write
-functions create files and directories as needed.
+and is expected to contain a 1-level map with keyword keys.
 
 ### [config](https://clojure.github.io/tools.deps.config/#clojure.tools.deps.config/config)
 
@@ -57,23 +59,6 @@ functions create files and directories as needed.
 ;; The value of <user-config-dir>/.cli-config/my.org/my-tool.edn
 (dc/read-config :user 'my.org/my-tool)
 ;; => {:color :dark}
-```
-
-### [write-config](https://clojure.github.io/tools.deps.config/#clojure.tools.deps.config/write-config)
-
-`(write-config location lib config)` - write the config as EDN, overwriting any existing file
-
-```clojure
-(dc/write-config :project 'my.org/my-tool {:width 120})
-```
-
-### [assoc-config](https://clojure.github.io/tools.deps.config/#clojure.tools.deps.config/assoc-config)
-
-`(assoc-config location lib k v)` - set a single key in the config file, preserving existing formatting and comments
-
-```clojure
-;; Persist one setting, creating the file if it does not exist
-(dc/assoc-config :user 'my.org/my-tool :color :dark)
 ```
 
 ### [config-file](https://clojure.github.io/tools.deps.config/#clojure.tools.deps.config/config-file)
