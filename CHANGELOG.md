@@ -1,7 +1,7 @@
 Changelog
 ===========
 
-* 0.1.Unreleased
+* 0.1.3
     * config
     * read-config
     * config-file
