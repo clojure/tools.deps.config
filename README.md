@@ -13,7 +13,31 @@ The two are separate to isolate dependencies needed for writing but not reading.
 
 # Release Information
 
-TBD
+Latest release: 0.1.3
+
+* [All released versions](https://central.sonatype.com/artifact/org.clojure/tools.deps.config/versions)
+
+[deps.edn](https://clojure.org/reference/deps_edn) dependency information:
+
+```
+org.clojure/tools.deps.config {:mvn/version "0.1.3"}
+```
+
+[Leiningen](https://github.com/technomancy/leiningen/) dependency information:
+
+```
+[org.clojure/tools.deps.config "0.1.3"]
+```
+
+[Maven](https://maven.apache.org) dependency information:
+
+```xml
+<dependency>
+  <groupId>org.clojure</groupId>
+  <artifactId>tools.deps.config</artifactId>
+  <version>0.1.3</version>
+</dependency>
+```
 
 # API
 
