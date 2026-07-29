@@ -54,7 +54,7 @@
 (defn data-dir
   "Returns a java.io.File at <location>/.cli-config/<lib-ns>/<lib-name>
   with location defined by :user or :project. The directory may not exist."
-  [location lib]
+  ^java.io.File [location lib]
   (validate-lib lib)
   (jio/file (location-dir location) ".cli-config" (namespace lib) (name lib)))
 
@@ -63,5 +63,5 @@
   with location defined by :user or :project and <path> a relative path
   that may be a filename or include sub-segments separated by '/'.
   The file may not exist."
-  [location lib path]
+  ^java.io.File [location lib path]
   (jio/file (data-dir location lib) path))
