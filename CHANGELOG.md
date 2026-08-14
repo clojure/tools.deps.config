@@ -1,6 +1,9 @@
 Changelog
 ===========
 
+* 0.1.5
+    * Rename config dir from .cli-config to .cljconf
+
 * 0.1.4
     * data-dir and data-file include ^java.io.File return type hint
 

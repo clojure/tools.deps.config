@@ -42,12 +42,12 @@ org.clojure/tools.deps.config {:mvn/version "0.1.4"}
 # API
 
 Tools are identified by a qualified lib symbol (e.g., `my.org/my-tool`). Tool
-config files live under a `.cli-config` directory at one of two locations:
+config files live under a `.cljconf` directory at one of two locations:
 
 * `:user` - the [user config dir](https://clojure.github.io/tools.deps.edn/#clojure.tools.deps.edn/user-config-dir) shared by all of a user's projects
 * `:project` - the [project dir](https://clojure.github.io/tools.deps.edn/#clojure.tools.deps.edn/project-dir) specific to a single project
 
-Under `.cli-config` each tool has two well-known paths: a config file of
+Under `.cljconf` each tool has two well-known paths: a config file of
 settings and a data directory for any other files the tool needs. This
 library reads the config file. For the data directory, it manages the
 location and the tool manages the contents. A tool may use either or
@@ -59,7 +59,7 @@ both. The examples below assume:
 
 ## Config
 
-The config file lives at `<location>/.cli-config/<lib-ns>/<lib-name>.edn`
+The config file lives at `<location>/.cljconf/<lib-ns>/<lib-name>.edn`
 and is expected to contain a 1-level map with keyword keys.
 
 ### [config](https://clojure.github.io/tools.deps.config/#clojure.tools.deps.config/config)
@@ -80,7 +80,7 @@ and is expected to contain a 1-level map with keyword keys.
 `(read-config location lib)` - read the config file at a single location, returns its value or nil
 
 ```clojure
-;; The value of <user-config-dir>/.cli-config/my.org/my-tool.edn
+;; The value of <user-config-dir>/.cljconf/my.org/my-tool.edn
 (dc/read-config :user 'my.org/my-tool)
 ;; => {:color :dark}
 ```
@@ -91,13 +91,13 @@ and is expected to contain a 1-level map with keyword keys.
 
 ```clojure
 (dc/config-file :user 'my.org/my-tool)
-;; => java.io.File at <user-config-dir>/.cli-config/my.org/my-tool.edn
+;; => java.io.File at <user-config-dir>/.cljconf/my.org/my-tool.edn
 ```
 
 ## Data
 
 For additional needs beyond the config map, each tool has a well-known data
-directory at `<location>/.cli-config/<lib-ns>/<lib-name>/`. The directory
+directory at `<location>/.cljconf/<lib-ns>/<lib-name>/`. The directory
 can hold any files in any format. The following functions hand you the paths
 and the tool is in charge of managing the contents.
 
@@ -107,7 +107,7 @@ and the tool is in charge of managing the contents.
 
 ```clojure
 (dc/data-dir :user 'my.org/my-tool)
-;; => java.io.File at <user-config-dir>/.cli-config/my.org/my-tool
+;; => java.io.File at <user-config-dir>/.cljconf/my.org/my-tool
 ```
 
 ### [data-file](https://clojure.github.io/tools.deps.config/#clojure.tools.deps.config/data-file)
@@ -116,7 +116,7 @@ and the tool is in charge of managing the contents.
 
 ```clojure
 (dc/data-file :user 'my.org/my-tool "prompt.clj")
-;; => java.io.File at <user-config-dir>/.cli-config/my.org/my-tool/prompt.clj
+;; => java.io.File at <user-config-dir>/.cljconf/my.org/my-tool/prompt.clj
 ```
 
 # Developer Information

@@ -10,17 +10,17 @@
 
 (deftest test-data-dir-builds-expected-path
   (let [actual (dir/with-dir base (sut/data-dir :project 'my.test/example-tool))
-        expected (File. base ".cli-config/my.test/example-tool")]
+        expected (File. base ".cljconf/my.test/example-tool")]
     (is (= expected actual))))
 
 (deftest test-data-file-builds-expected-path
   (let [actual (dir/with-dir base (sut/data-file :project 'my.test/example-tool "prompt.clj"))
-        expected (File. base ".cli-config/my.test/example-tool/prompt.clj")]
+        expected (File. base ".cljconf/my.test/example-tool/prompt.clj")]
     (is (= expected actual))))
 
 (deftest test-config-file-builds-expected-path
   (let [actual (dir/with-dir base (sut/config-file :project 'my.test/example-tool))
-        expected (File. base ".cli-config/my.test/example-tool.edn")]
+        expected (File. base ".cljconf/my.test/example-tool.edn")]
     (is (= expected actual))))
 
 (deftest test-read-config-returns-nil-for-missing-file

@@ -25,14 +25,14 @@
     (throw (ex-info "lib must be a qualified symbol (group/artifact)" {:lib lib}))))
 
 (defn config-file
-  "Returns a java.io.File at <location>/.cli-config/<lib-ns>/<lib-name>.edn
+  "Returns a java.io.File at <location>/.cljconf/<lib-ns>/<lib-name>.edn
   with location defined by :user or :project. The file may not exist."
   ^java.io.File [location lib]
   (validate-lib lib)
-  (jio/file (location-dir location) ".cli-config" (namespace lib) (str (name lib) ".edn")))
+  (jio/file (location-dir location) ".cljconf" (namespace lib) (str (name lib) ".edn")))
 
 (defn read-config
-  "Returns the value at <location>/.cli-config/<lib-ns>/<lib-name>.edn
+  "Returns the value at <location>/.cljconf/<lib-ns>/<lib-name>.edn
   with location defined by :user or :project. Returns nil if the file
   does not exist or is empty."
   [location lib]
@@ -52,14 +52,14 @@
          overrides))
 
 (defn data-dir
-  "Returns a java.io.File at <location>/.cli-config/<lib-ns>/<lib-name>
+  "Returns a java.io.File at <location>/.cljconf/<lib-ns>/<lib-name>
   with location defined by :user or :project. The directory may not exist."
   ^java.io.File [location lib]
   (validate-lib lib)
-  (jio/file (location-dir location) ".cli-config" (namespace lib) (name lib)))
+  (jio/file (location-dir location) ".cljconf" (namespace lib) (name lib)))
 
 (defn data-file
-  "Returns a java.io.File at <location>/.cli-config/<lib-ns>/<lib-name>/<path>
+  "Returns a java.io.File at <location>/.cljconf/<lib-ns>/<lib-name>/<path>
   with location defined by :user or :project and <path> a relative path
   that may be a filename or include sub-segments separated by '/'.
   The file may not exist."
